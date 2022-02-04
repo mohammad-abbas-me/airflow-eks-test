@@ -39,9 +39,9 @@ secret_env5 = Secret('env', 'PASSWORD', 'database-secrets', 'PASSWORD')
 
 passing = KubernetesPodOperator(
     namespace="default",
-    image="647612030395.dkr.ecr.eu-west-1.amazonaws.com/test_mcd_etl:v1.1",
+    image="647612030395.dkr.ecr.eu-west-1.amazonaws.com/test_mcd_etl:v1.2",
     cmds=None,
-    arguments=["source.task.snapshot_update.py","source-data/Price_Snapshot_etl_test.txt"],
+    arguments=["source.task.snapshot_update.py","source-data/Price_Snapshot_etl_test.txt.gz"],
     # volume_mounts=volume_mount_list,
     # volumes=volume_list,
     labels={"foo": "bar"},
