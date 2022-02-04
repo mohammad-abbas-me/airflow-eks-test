@@ -16,7 +16,7 @@ default_args = {
     "email_on_retry": False,
     "retries": 1,
     "retry_delay": timedelta(minutes=5),
-    "dagrun_timeout": timedelta(minutes=5),
+    "dagrun_timeout": timedelta(minutes=60),
 }
 
 # define the python function
@@ -24,7 +24,7 @@ def print_function():
     return "Python Operator print statement"
 
 
-dag = DAG("deploy_snapshot_dag_new1", default_args=default_args, schedule_interval=None)
+dag = DAG("gc_data", default_args=default_args, schedule_interval=None)
 
 #start = BashOperator(task_id="deploy_job", bash_command="date", dag=dag)
 
@@ -51,8 +51,8 @@ passing = KubernetesPodOperator(
     labels={"foo": "bar"},
     name="passing-test",
     task_id="passing-task",
-    in_cluster=False,
-    config_file=os.path.expanduser('~')+"/.kube/config",
+    in_cluster=True,
+    #config_file=os.path.expanduser('~')+"/.kube/config",
     get_logs=True,
     execution_timeout=timedelta(seconds=600),
     secrets=[secret_env1,secret_env2,secret_env3,secret_env4,secret_env5],
